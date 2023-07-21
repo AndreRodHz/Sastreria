@@ -19,4 +19,5 @@ BEGIN
 		END
 	FROM inserted
 	WHERE cliente.id_cliente = inserted.id_cliente;
+	--GEEEEEEEEEEEEEE
 END;
