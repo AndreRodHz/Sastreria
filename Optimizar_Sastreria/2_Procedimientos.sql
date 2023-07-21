@@ -1,0 +1,23 @@
+--use SastreriaV1
+
+--create procedure insert_cliente
+--(
+--	@id varchar(15),
+--	@nombre varchar(50),
+--	@genero varchar(15),
+--	@documento varchar(15),
+--	@num_doc varchar(20),
+--	@telefono varchar(15),
+--	@email_c varchar(255)
+--)
+--as
+--	set @id = upper(left(@id, 1)) + lower(substring(@id, 2, len(@id)))
+--	set	@nombre = upper(left(@nombre, 1)) + lower(substring(@nombre, 2, len(@nombre)))
+--	set	@genero = upper(left(@genero, 1)) + lower(substring(@genero, 2, len(@genero)))
+--	set	@documento = upper(left(@documento, 1)) + lower(substring(@documento, 2, len(@documento)))
+--	set	@num_doc = upper(left(@num_doc, 1)) + lower(substring(@num_doc, 2, len(@num_doc)))
+--	set	@telefono = upper(left(@telefono, 1)) + lower(substring(@telefono, 2, len(@telefono)))
+--	set	@email_c = upper(left(@email_c, 1)) + lower(substring(@email_c, 2, len(@email_c)))
+--	insert into cliente values (@id, @nombre, @genero, @documento, @num_doc, @telefono, @email_c)
+
+--execute insert_cliente 'HDyt628ua', 'jOsEssS', 'g3', 'd1', 'SSSSu788', '93874', ''

@@ -1,0 +1,14 @@
+--Use SastreriaV1
+
+--create function precio_base_a
+--(
+--	@precio numeric(18,2),
+--	@cantidad int
+--)
+--returns numeric(18,2)
+--as
+--begin
+--	declare @resultado numeric(18,2)
+--	select @resultado = @precio * @cantidad
+--	return @resultado
+--end

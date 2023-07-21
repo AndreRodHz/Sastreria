@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 18.00
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Creacion_Sastreria", "Creacion_Sastreria\Creacion_Sastreria.ssmssqlproj", "{10BC73FF-8D3E-40DD-AC93-9D17E28A0AAB}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Mantenimiento", "Mantenimiento\Mantenimiento.ssmssqlproj", "{F3CEB441-278C-47CE-B307-1D0C37C9FB44}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Optimizar_Sastreria", "Optimizar_Sastreria\Optimizar_Sastreria.ssmssqlproj", "{524F94CD-BE25-41A2-9B88-4AD43428E958}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32F3E1B7-900B-4428-86E2-A1F492D89B7C}.Default|Default.ActiveCfg = Default
+		{10BC73FF-8D3E-40DD-AC93-9D17E28A0AAB}.Default|Default.ActiveCfg = Default
+		{F3CEB441-278C-47CE-B307-1D0C37C9FB44}.Default|Default.ActiveCfg = Default
+		{524F94CD-BE25-41A2-9B88-4AD43428E958}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2912C84F-B88D-4C7A-ACEB-A6C68702A661}
+	EndGlobalSection
+EndGlobal
