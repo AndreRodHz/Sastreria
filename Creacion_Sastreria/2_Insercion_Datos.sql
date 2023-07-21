@@ -73,9 +73,12 @@ insert into empleado values
 
 --Insercion de datos para la tabla cliente
 insert into cliente values
-	('C1', 'Jair Lopez', 'G1', 'D1', '12345676', '99999999', 'lopez@gmail.com'),
-	('C2', 'Mercedes Pesantes', 'G2', 'D1', '12386676', '88888888', 'mercedes@gmail.com'),
-	('C3', 'Anjali Angeles', 'G2', 'D1', '34345676', '99977999', 'lopez626@gmail.com')
+	--('C1', 'Jair Lopez', 'G1', 'D1', '12345676', '99999999', 'lopez@gmail.com'),
+	--('C2', 'Mercedes Pesantes', 'G2', 'D1', '12386676', '88888888', 'mercedes@gmail.com'),
+	--('C3', 'Anjali Angeles', 'G2', 'D1', '34345676', '99977999', 'lopez626@gmail.com')
+	('C4', 'ANDrE rODRIGUEZ', 'G1', 'D1', '7356384', '922028423', 'andre67_LM@GMAIL.COM')
+
+	delete from cliente where id_cliente = 'C4'
 
 --Insercion de datos para la tabla producto
 insert into producto values
