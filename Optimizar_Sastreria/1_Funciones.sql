@@ -13,7 +13,7 @@
 --	return @resultado
 --end
 
-CREATE FUNCTION dbo.CapitalizeName (@inputString VARCHAR(255))
+CREATE FUNCTION dbo.CapitalizarNombre (@inputString VARCHAR(255))
 RETURNS VARCHAR(255)
 AS
 BEGIN
