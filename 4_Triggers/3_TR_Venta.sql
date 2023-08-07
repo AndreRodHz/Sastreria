@@ -1,0 +1,17 @@
+CREATE TRIGGER venta_vereficacion_id_transaccion
+ON venta
+FOR INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (
+        SELECT 1
+        FROM Recibo R
+        JOIN inserted I ON R.id_transac = I.id_transac
+    )
+    BEGIN
+        RAISERROR('No se permite ingresar un id_transaccion que ya existe en la tabla Recibo.', 16, 1);
+        ROLLBACK TRANSACTION; -- Revertir la inserción
+    END
+END;
