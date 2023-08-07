@@ -1,4 +1,4 @@
-Use SastreriaV1
+USE SastreriaV1
 
 --LAPTOP
 --backup database SastreriaV1

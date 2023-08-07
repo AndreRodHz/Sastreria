@@ -1,4 +1,4 @@
---Use SastreriaV1
+--USE SastreriaV1
 
 --**Para Capitalizar las cadenas de texto de nombre por separado, SIRVE PARA CUALQUIER CAMPO**
 CREATE FUNCTION dbo.Capitalizador (@inputString VARCHAR(255))

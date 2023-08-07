@@ -1,5 +1,5 @@
 
---drop trigger entrada_empleado
+--DROP TRIGGER entrada_empleado
 
 CREATE TRIGGER entrada_empleado
 ON empleado

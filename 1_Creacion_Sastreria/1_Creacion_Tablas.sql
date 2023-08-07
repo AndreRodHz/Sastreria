@@ -1,220 +1,219 @@
 USE SastreriaV1
 
---alter table detalle_alquiler
---	add precio_u numeric(18,2);
+DROP TABLE recibo;
+DROP TABLE detalle_venta;
+DROP TABLE detalle_alquiler;
+DROP TABLE alquiler;
+DROP TABLE venta;
+DROP TABLE detalle_pedido;
+DROP TABLE producto_pedido;
+DROP TABLE inferior;
+DROP TABLE superior;
+DROP TABLE pedido;
+DROP TABLE transaccion;
+DROP TABLE comprobante;
+DROP TABLE empleado;
+DROP TABLE cliente;
+DROP TABLE documento;
+DROP TABLE genero;
+DROP TABLE producto;
+DROP TABLE condicion;
+DROP TABLE categoria;
 
-drop table recibo;
-drop table detalle_venta;
-drop table detalle_alquiler;
-drop table alquiler;
-drop table venta;
-drop table detalle_pedido;
-drop table producto_pedido;
-drop table inferior;
-drop table superior;
-drop table pedido;
-drop table transaccion;
-drop table comprobante;
-drop table empleado;
-drop table cliente;
-drop table documento;
-drop table genero;
-drop table producto;
-drop table condicion;
-drop table categoria;
-
-create table categoria(
-	id_categoria varchar(15) primary key,
-	nombre_cate varchar(50) not null,
-	descrip_cate varchar(255)
+CREATE TABLE categoria(
+	id_categoria VARCHAR(15) PRIMARY KEY,
+	nombre_cate VARCHAR(50) NOT NULL,
+	descrip_cate VARCHAR(255)
 )
 
-create table condicion(
-	id_condicion varchar(15) primary key,
-	nombre_condi varchar(50) not null,
-	descrip_condi varchar(255)
+CREATE TABLE condicion(
+	id_condicion VARCHAR(15) PRIMARY KEY,
+	nombre_condi VARCHAR(50) NOT NULL,
+	descrip_condi VARCHAR(255)
 )
 
-create table producto(
-	id_producto varchar(15) primary key,
-	nombre_p varchar(50) not null,
-	descrip_p varchar(255),
-	talla varchar(15),
-	id_categoria varchar(15) not null,
-	id_condicion varchar(15) not null,
-	precio_p numeric(18,2) not null,
-	stock_p int not null,
-	foreign key (id_categoria) references categoria(id_categoria),
-	foreign key (id_condicion) references condicion(id_condicion),
+CREATE TABLE producto(
+	id_producto VARCHAR(15) PRIMARY KEY,
+	nombre_p VARCHAR(50) NOT NULL,
+	descrip_p VARCHAR(255),
+	talla VARCHAR(15),
+	id_categoria VARCHAR(15) NOT NULL,
+	id_condicion VARCHAR(15) NOT NULL,
+	precio_p NUMERIC(18,2) NOT NULL,
+	stock_p INT NOT NULL,
+	FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria),
+	FOREIGN KEY (id_condicion) REFERENCES condicion(id_condicion),
+	CONSTRAINT CK_precio_no_negativo CHECK(precio_p >= 0),
+	CONSTRAINT CK_cantidad_no_negativo CHECK(stock_p >= 0)
+)
+	
+CREATE TABLE genero(
+	id_genero VARCHAR(15) PRIMARY KEY,
+	nombre_gen VARCHAR(50) NOT NULL,
 )
 
-create table genero(
-	id_genero varchar(15) primary key,
-	nombre_gen varchar(50) not null,
+CREATE TABLE documento(
+	id_documento VARCHAR(15) PRIMARY KEY,
+	nombre_doc VARCHAR(50) NOT NULL,
 )
 
-create table documento(
-	id_documento varchar(15) primary key,
-	nombre_doc varchar(50) not null,
+CREATE TABLE cliente(
+	id_cliente VARCHAR(15) PRIMARY KEY,
+	nombre_c VARCHAR(50) NOT NULL,
+	id_genero VARCHAR(15) NOT NULL,
+	id_documento VARCHAR(15) NOT NULL,
+	num_doc_c VARCHAR(20) NOT NULL,
+	telefono_c VARCHAR(15),
+	email_c VARCHAR(255),
+	FOREIGN KEY (id_genero) REFERENCES genero(id_genero),
+	FOREIGN KEY (id_documento) REFERENCES documento(id_documento),
+	CONSTRAINT UQ_num_doc_cliente UNIQUE(num_doc_c)
 )
 
-create table cliente(
-	id_cliente varchar(15) primary key,
-	nombre_c varchar(50) not null,
-	id_genero varchar(15) not null,
-	id_documento varchar(15) not null,
-	num_doc_c varchar(20) not null,
-	telefono_c varchar(15),
-	email_c varchar(255),
-	foreign key (id_genero) references genero(id_genero),
-	foreign key (id_documento) references documento(id_documento),
-	constraint UQ_num_doc_cliente unique(num_doc_c)
+CREATE TABLE empleado(
+	id_empleado VARCHAR(15) PRIMARY KEY,
+	nombre_e VARCHAR(50) NOT NULL,
+	id_genero VARCHAR(15) NOT NULL,
+	id_documento VARCHAR(15) NOT NULL,
+	num_doc_e VARCHAR(20) NOT NULL,
+	telefono_e VARCHAR(15) NOT NULL,
+	direccion_e VARCHAR(255),
+	email_e VARCHAR(255) NOT NULL,
+	password_e varbinary(255) NOT NULL,
+	FOREIGN KEY (id_genero) REFERENCES genero(id_genero),
+	FOREIGN KEY (id_documento) REFERENCES documento(id_documento),
+	CONSTRAINT UQ_num_doc_empleado UNIQUE(num_doc_e),
+	CONSTRAINT UQ_email_empleado UNIQUE(email_e)
 )
 
-create table empleado(
-	id_empleado varchar(15) primary key,
-	nombre_e varchar(50) not null,
-	id_genero varchar(15) not null,
-	id_documento varchar(15) not null,
-	num_doc_e varchar(20) not null,
-	telefono_e varchar(15) not null,
-	direccion_e varchar(255),
-	email_e varchar(255) not null,
-	password_e varbinary(255) not null,
-	foreign key (id_genero) references genero(id_genero),
-	foreign key (id_documento) references documento(id_documento),
-	constraint UQ_num_doc_empleado unique(num_doc_e),
-	constraint UQ_email_empleado unique(email_e)
+CREATE TABLE comprobante(
+	id_comprobante VARCHAR(15) PRIMARY KEY,
+	nombre_com VARCHAR(50),
 )
 
-create table comprobante(
-	id_comprobante varchar(15) primary key,
-	nombre_com varchar(50),
-)
-
-create table producto_pedido(
-	id_prod_pedi varchar(15) primary key,
-	nombre_pp varchar(50) not null,
-	descripcion varchar(255),
+CREATE TABLE producto_pedido(
+	id_prod_pedi VARCHAR(15) PRIMARY KEY,
+	nombre_pp VARCHAR(50) NOT NULL,
+	descripcion VARCHAR(255),
 )
 
 --											***********SEPARADOR*************
-create table transaccion(
-	id_transac varchar(15) primary key,
-	tipo_transac varchar(25) not null,
-	fecha_t datetime not null,
+CREATE TABLE transaccion(
+	id_transac VARCHAR(15) PRIMARY KEY,
+	tipo_transac VARCHAR(25) NOT NULL,
+	fecha_t DATETIME NOT NULL,
 )
 --											***********SEPARADOR*************
-create table pedido(
-	id_pedido varchar(15) primary key,
-	id_transac varchar(15) not null,
-	id_cliente varchar(15) not null,
-	id_empleado varchar(15) not null,
-	fecha_p datetime not null,
-	descrip varchar(255),
-	precio_base_p numeric(18,2) not null,
-	impuesto_p numeric(18,2) not null,
-	total_p numeric(18,2) not null,
-	foreign key (id_transac) references transaccion(id_transac),
-	foreign key (id_cliente) references cliente(id_cliente),
-	foreign key (id_empleado) references empleado(id_empleado),
-	constraint UQ_pedido_transaccion unique(id_transac)
+CREATE TABLE pedido(
+	id_pedido VARCHAR(15) PRIMARY KEY,
+	id_transac VARCHAR(15) NOT NULL,
+	id_cliente VARCHAR(15) NOT NULL,
+	id_empleado VARCHAR(15) NOT NULL,
+	fecha_p DATETIME NOT NULL,
+	descrip VARCHAR(255),
+	precio_base_p NUMERIC(18,2) NOT NULL,
+	impuesto_p NUMERIC(18,2) NOT NULL,
+	total_p NUMERIC(18,2) NOT NULL,
+	FOREIGN KEY (id_transac) REFERENCES transaccion(id_transac),
+	FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente),
+	FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado),
+	CONSTRAINT UQ_pedido_transaccion UNIQUE(id_transac)
 )
 
-create table detalle_pedido(
-	id_pedido varchar(15) not null,
-	id_prod_pedi varchar(15) not null,
-	precio_d_pp numeric(18,3) not null,
-	foreign key (id_pedido) references pedido(id_pedido),
-	foreign key (id_prod_pedi) references producto_pedido(id_prod_pedi)
+CREATE TABLE detalle_pedido(
+	id_pedido VARCHAR(15) NOT NULL,
+	id_prod_pedi VARCHAR(15) NOT NULL,
+	precio_d_pp NUMERIC(18,3) NOT NULL,
+	FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido),
+	FOREIGN KEY (id_prod_pedi) REFERENCES producto_pedido(id_prod_pedi)
 )
 
-create table superior(
-	id_pedido varchar(15),
-	cuello numeric(18,2),
-	longitud numeric(18,2),
-	hombros numeric(18,2),
-	sisa numeric(18,2),
-	biceps numeric(18,2),
-	pecho numeric(18,2),
-	brazos numeric(18,2),
-	largo_cha numeric(18,2),
-	largo_abri numeric(18,2),
-	foreign key (id_pedido) references pedido(id_pedido),
-	constraint UQ_superior_pedido unique(id_pedido)
+CREATE TABLE superior(
+	id_pedido VARCHAR(15),
+	cuello NUMERIC(18,2),
+	longitud NUMERIC(18,2),
+	hombros NUMERIC(18,2),
+	sisa NUMERIC(18,2),
+	biceps NUMERIC(18,2),
+	pecho NUMERIC(18,2),
+	brazos NUMERIC(18,2),
+	largo_cha NUMERIC(18,2),
+	largo_abri NUMERIC(18,2),
+	FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido),
+	CONSTRAINT UQ_superior_pedido UNIQUE(id_pedido)
 )
 
-create table inferior(
-	id_pedido varchar(15),
-	caderas numeric(18,2),
-	largo numeric(18,2),
-	tiro numeric(18,2),
-	posicion numeric(18,2),
-	muslos numeric(18,2),
-	foreign key (id_pedido) references pedido(id_pedido),
-	constraint UQ_inferior_pedido unique(id_pedido)
+CREATE TABLE inferior(
+	id_pedido VARCHAR(15),
+	caderas NUMERIC(18,2),
+	largo NUMERIC(18,2),
+	tiro NUMERIC(18,2),
+	posicion NUMERIC(18,2),
+	muslos NUMERIC(18,2),
+	FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido),
+	CONSTRAINT UQ_inferior_pedido UNIQUE(id_pedido)
 )
 
-create table venta(
-	id_venta varchar(15) primary key,
-	id_transac varchar(15) not null,
-	id_cliente varchar(15) not null,
-	id_empleado varchar(15) not null,
-	fecha_v datetime not null,
-	precio_base_v numeric(18,2) not null,
-	impuesto_v numeric(18,2) not null,
-	total_v numeric(18,2) not null,
-	foreign key (id_transac) references transaccion(id_transac),
-	foreign key (id_cliente) references cliente(id_cliente),
-	foreign key (id_empleado) references empleado(id_empleado),
-	constraint UQ_venta_transaccion unique(id_transac)
+CREATE TABLE venta(
+	id_venta VARCHAR(15) PRIMARY KEY,
+	id_transac VARCHAR(15) NOT NULL,
+	id_cliente VARCHAR(15) NOT NULL,
+	id_empleado VARCHAR(15) NOT NULL,
+	fecha_v DATETIME NOT NULL,
+	precio_base_v NUMERIC(18,2) NOT NULL,
+	impuesto_v NUMERIC(18,2) NOT NULL,
+	total_v NUMERIC(18,2) NOT NULL,
+	FOREIGN KEY (id_transac) REFERENCES transaccion(id_transac),
+	FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente),
+	FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado),
+	CONSTRAINT UQ_venta_transaccion UNIQUE(id_transac)
 )
 
-create table alquiler(
-	id_alquiler varchar(15) primary key,
-	id_transac varchar(15) not null,
-	id_cliente varchar(15) not null,
-	id_empleado varchar(15) not null,
-	fecha_a datetime not null,
-	precio_base_a numeric(18,2) not null,
-	impuesto_a numeric(18,2) not null,
-	total_a numeric(18,2) not null,
-	foreign key (id_transac) references transaccion(id_transac),
-	foreign key (id_cliente) references cliente(id_cliente),
-	foreign key (id_empleado) references empleado(id_empleado),
-	constraint UQ_alquiler_transaccion unique(id_transac)
+CREATE TABLE alquiler(
+	id_alquiler VARCHAR(15) PRIMARY KEY,
+	id_transac VARCHAR(15) NOT NULL,
+	id_cliente VARCHAR(15) NOT NULL,
+	id_empleado VARCHAR(15) NOT NULL,
+	fecha_a DATETIME NOT NULL,
+	precio_base_a NUMERIC(18,2) NOT NULL,
+	impuesto_a NUMERIC(18,2) NOT NULL,
+	total_a NUMERIC(18,2) NOT NULL,
+	FOREIGN KEY (id_transac) REFERENCES transaccion(id_transac),
+	FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente),
+	FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado),
+	CONSTRAINT UQ_alquiler_transaccion UNIQUE(id_transac)
 )
 
-create table detalle_alquiler(
-	id_alquiler varchar(15) not null,
-	id_producto varchar(15) not null,
-	precio_u numeric(18,2) not null,
-	cantidad_alquiler int not null,
-	foreign key (id_alquiler) references alquiler(id_alquiler),
-	foreign key (id_producto) references producto(id_producto)
+CREATE TABLE detalle_alquiler(
+	id_alquiler VARCHAR(15) NOT NULL,
+	id_producto VARCHAR(15) NOT NULL,
+	precio_u NUMERIC(18,2) NOT NULL,
+	cantidad_alquiler INT NOT NULL,
+	FOREIGN KEY (id_alquiler) REFERENCES alquiler(id_alquiler),
+	FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
 )
 
-create table detalle_venta(
-	id_venta varchar(15) not null,
-	id_producto varchar(15) not null,
-	precio_u numeric(18,2) not null,
-	cantidad_venta int not null,
-	foreign key (id_venta) references venta(id_venta),
-	foreign key (id_producto) references producto(id_producto)
+CREATE TABLE detalle_venta(
+	id_venta VARCHAR(15) NOT NULL,
+	id_producto VARCHAR(15) NOT NULL,
+	precio_u NUMERIC(18,2) NOT NULL,
+	cantidad_venta INT NOT NULL,
+	FOREIGN KEY (id_venta) REFERENCES venta(id_venta),
+	FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
 )
 
-create table recibo(
-	id_recibo varchar(15) primary key,
-	id_transac varchar(15) not null,
-	id_comprobante varchar(15) not null,
-	num_comprobante varchar(20) not null,
-	fecha_recibo datetime not null,
-	base_rec numeric(18,2) not null,
-	impuesto_rec numeric(18,2) not null,
-	total_rec numeric(18,2) not null,
-	estado varchar(20) not null,
-	foreign key (id_transac) references transaccion(id_transac),
-	foreign key (id_comprobante) references comprobante(id_comprobante),
-	constraint UQ_recibo_num_comprobante unique(num_comprobante),
-	constraint UQ_recibo_num_transaccion unique(id_transac)
+CREATE TABLE recibo(
+	id_recibo VARCHAR(15) PRIMARY KEY,
+	id_transac VARCHAR(15) NOT NULL,
+	id_comprobante VARCHAR(15) NOT NULL,
+	num_comprobante VARCHAR(20) NOT NULL,
+	fecha_recibo DATETIME NOT NULL,
+	base_rec NUMERIC(18,2) NOT NULL,
+	impuesto_rec NUMERIC(18,2) NOT NULL,
+	total_rec NUMERIC(18,2) NOT NULL,
+	estado varchar(20) NOT NULL,
+	FOREIGN KEY (id_transac) REFERENCES transaccion(id_transac),
+	FOREIGN KEY (id_comprobante) REFERENCES comprobante(id_comprobante),
+	CONSTRAINT UQ_recibo_num_comprobante UNIQUE(num_comprobante),
+	CONSTRAINT UQ_recibo_num_transaccion UNIQUE(id_transac)
 )

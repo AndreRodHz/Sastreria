@@ -1,15 +1,15 @@
-use SastreriaV1
+USE SastreriaV1
 
 
 --PARA AGREGAR UN NUEVO PRODUCTO
-insert into producto values
+INSERT INTO producto VALUES
 	('PRO-000', 'nombre', 'descripcion', 'talla', 'categoria', 'condicion', precio, stock)
   -- Codigo,  Nombre,   Descripcion,   Talla,   Categoria,   Conmdicion, Precio, Stock
 
 
 --PARA MODIFICAR UN PRODUCTO
-update producto 
-	set id_producto = '',
+UPDATE producto 
+	SET id_producto = '',
 		nombre_p = '',
 		descrip_p = '',
 		talla = '',
@@ -17,16 +17,16 @@ update producto
 		id_condicion = '',
 		precio_p = 00,
 		stock_p = 00
-	where id_producto = 'PRO-000';
+	WHERE id_producto = 'PRO-000';
 
 
 --PARA ELIMINAR UN PRODUCTO
-delete producto where id_producto = 'PRO-000'
+DELETE producto WHERE id_producto = 'PRO-000'
 
 
 --PARA VER LA LISTA DE PRODUCTOS
-SELECT id_producto as 'ID Producto', nombre_p as 'Nombre', descrip_p as 'Descripcion', talla as 'Talla',
-	   nombre_cate as 'Categoria', nombre_condi as 'Condicion', precio_p as 'Precio', stock_p as 'Stock'
+SELECT id_producto AS 'ID Producto', nombre_p AS 'Nombre', descrip_p AS 'Descripcion', talla AS 'Talla',
+	   nombre_cate AS 'Categoria', nombre_condi AS 'Condicion', precio_p AS 'Precio', stock_p AS 'Stock'
 FROM producto
 INNER JOIN categoria ON producto.id_categoria = categoria.id_categoria
 INNER JOIN condicion ON producto.id_condicion = condicion.id_condicion

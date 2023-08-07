@@ -6,11 +6,11 @@ RETURNS VARCHAR(20)
 AS
 BEGIN
 
-	DECLARE @salida varchar(20)
+	DECLARE @salida VARCHAR(20)
 
-	IF @input_id_com like 'CMP-1'
+	IF @input_id_com LIKE 'CMP-1'
 		BEGIN
-			IF (SELECT MAX(num_comprobante) FROM recibo where num_comprobante like ('%B%')) is not null
+			IF (SELECT MAX(num_comprobante) FROM recibo WHERE num_comprobante LIKE ('%B%')) IS NOT NULL
 				BEGIN
 					SET @salida = dbo.num_comprobante('B')
 				END
@@ -20,9 +20,9 @@ BEGIN
 				END
 		END
 
-	ELSE IF @input_id_com like 'CMP-2'
+	ELSE IF @input_id_com LIKE 'CMP-2'
 		BEGIN
-			IF (SELECT MAX(num_comprobante) FROM recibo where num_comprobante like ('%F%')) is not null
+			IF (SELECT MAX(num_comprobante) FROM recibo WHERE num_comprobante LIKE ('%F%')) IS NOT NULL
 				BEGIN
 					SET @salida = dbo.num_comprobante('F')
 				END

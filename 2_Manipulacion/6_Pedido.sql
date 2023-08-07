@@ -1,35 +1,35 @@
-Use SastreriaV1
+USE SastreriaV1
 -- =======================================================================================================================================
 ----CREACION DEL IDENTIFICADOR **TRANSACCION**
 -- =======================================================================================================================================
-declare @temp_tabla_tp TABLE (tp_code varchar(15))
-declare @transac_code varchar(15)
+DECLARE @temp_tabla_tp TABLE (tp_code VARCHAR(15))
+DECLARE @transac_code VARCHAR(15)
 
 INSERT INTO @temp_tabla_tp (tp_code)
 EXEC dbo.ultimo_codigo_transaccion;
 
-SELECT @transac_code = tp_code from @temp_tabla_tp
+SELECT @transac_code = tp_code FROM @temp_tabla_tp
 
-insert into transaccion values
+INSERT INTO transaccion VALUES
 	(@transac_code, 'Pedido	', CURRENT_TIMESTAMP)
 -- =======================================================================================================================================
 ----INSERCION DE DATOS PARA LA TABLA **PEDIDO** - GENERACION DEL PEDIDO
 -- ======================================================================================================================================= 
-declare @temp_tabla TABLE(ped_code varchar(15))
-declare	@pedido_code varchar(15)
+DECLARE @temp_tabla TABLE(ped_code VARCHAR(15))
+DECLARE	@pedido_code VARCHAR(15)
 
 INSERT INTO @temp_tabla (ped_code)
 EXEC dbo.ultimo_codigo_pedido;
 
-SELECT @pedido_code = ped_code from @temp_tabla
+SELECT @pedido_code = ped_code FROM @temp_tabla
 
-insert into pedido values
+INSERT INTO pedido VALUES
 	(@pedido_code, (SELECT TOP 1 id_transac FROM transaccion ORDER BY fecha_t DESC),
 	'CLI-2', 'EMP-1', CURRENT_TIMESTAMP, 'Para niño de 10 años', 0, 0, 0)
 -- =======================================================================================================================================
 ----INSERCION EN LA DE LOS PRODUCTOS DE PEDIDO **DETALLE PEDIDO**
 -- ======================================================================================================================================= 
-INSERT INTO detalle_pedido values
+INSERT INTO detalle_pedido VALUES
 	(@pedido_code, 'PRP-1', 100),
 	(@pedido_code, 'PRP-2', 265),
 	(@pedido_code, 'PRP-3', 130)
@@ -49,18 +49,19 @@ UPDATE pedido
 	SET impuesto_p = (SELECT precio_base_p FROM pedido WHERE id_pedido = @pedido_code) * 0.18,
 		total_p = (SELECT precio_base_p FROM pedido WHERE id_pedido = @pedido_code) +
 				  (SELECT precio_base_p FROM pedido WHERE id_pedido = @pedido_code) * 0.18
+	WHERE pedido.id_pedido = @pedido_code;
 -- =======================================================================================================================================
 ----INSERCION EN LA TABLA **RECIBO**
 -- =======================================================================================================================================
-declare @temp_tabla_rp TABLE(rp_code varchar(15))
-declare @recibo_code varchar(15)
+DECLARE @temp_tabla_rp TABLE(rp_code VARCHAR(15))
+DECLARE @recibo_code VARCHAR(15)
 
 INSERT INTO @temp_tabla_rp (rp_code)
 EXEC dbo.ultimo_codigo_recibo;
 
-SELECT @recibo_code = rp_code from @temp_tabla_rp
+SELECT @recibo_code = rp_code FROM @temp_tabla_rp
 
-DECLARE @id_compro varchar(15)
+DECLARE @id_compro VARCHAR(15)
 SET @id_compro = 'CMP-1'
 
 INSERT INTO RECIBO VALUES
@@ -74,10 +75,10 @@ INSERT INTO RECIBO VALUES
 -- =======================================================================================================================================
 -- SELECT para obtener la matriz de cara al usuario
 -- =======================================================================================================================================
-SELECT pedido.id_pedido as 'ID Pedido', id_recibo as 'ID Recibo',  pedido.id_transac as 'ID Transaccion', id_empleado as 'ID Empleado',
-	   pedido.id_cliente as 'ID Cliente', num_doc_c as 'N° Documento Cliente', nombre_c as 'Cliente', nombre_com as 'Comprobante',
-	   num_comprobante as 'N° Comprobante', fecha_p as 'Fecha', descrip as 'Descripcion', precio_base_p as 'Precio Base',
-	   impuesto_p as 'Impuesto', total_p as 'Total'
+SELECT pedido.id_pedido AS 'ID Pedido', id_recibo AS 'ID Recibo',  pedido.id_transac AS 'ID Transaccion', id_empleado AS 'ID Empleado',
+	   pedido.id_cliente AS 'ID Cliente', num_doc_c AS 'N° Documento Cliente', nombre_c AS 'Cliente', nombre_com AS 'Comprobante',
+	   num_comprobante AS 'N° Comprobante', fecha_p AS 'Fecha', DESCrip AS 'Descripcion', precio_base_p AS 'Precio BASe',
+	   impuesto_p AS 'Impuesto', total_p AS 'Total'
 FROM pedido
 INNER JOIN cliente ON pedido.id_cliente = cliente.id_cliente
 INNER JOIN recibo ON pedido.id_transac = recibo.id_transac
@@ -85,7 +86,7 @@ INNER JOIN comprobante ON recibo.id_comprobante = comprobante.id_comprobante
 ORDER BY CONVERT(INT, SUBSTRING(pedido.id_pedido, 3, LEN(pedido.id_pedido))) DESC
 -- =======================================================================================================================================
 -- =======================================================================================================================================
-select * from transaccion ORDER BY fecha_t desc
-select * from pedido ORDER BY fecha_p desc
-select * from detalle_pedido WHERE id_pedido = @pedido_code
-select * from recibo ORDER BY fecha_recibo desc
+SELECT * FROM transaccion ORDER BY fecha_t DESC
+SELECT * FROM pedido ORDER BY fecha_p DESC
+SELECT * FROM detalle_pedido WHERE id_pedido = @pedido_code
+SELECT * FROM recibo ORDER BY fecha_recibo DESC

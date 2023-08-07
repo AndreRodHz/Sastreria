@@ -1,14 +1,14 @@
-use SastreriaV1
+USE SastreriaV1
 
 --PARA AGREGAR UN NUEVO EMPLEADO
-insert into empleado values
-	('EMP-90', 'Nombre', 'GEN-0', 'DOC-0', '1234567', '987654321', 'Domicilio', 'correo@yopmail.com', CONVERT(varbinary(255), 'contraseña', 0));
+INSERT INTO empleado VALUES
+	('EMP-90', 'Nombre', 'GEN-0', 'DOC-0', '1234567', '987654321', 'Domicilio', 'correo@yopmail.com', CONVERT(VARBINARY(255), 'contraseña', 0));
 --   Codigo, Nombre, Genero, Documento, NumDoc, Telefono,  Direccion,    Correo,             Constraseña
 
 
 --PARA MODIFICAR UN EMPLEADO
-update empleado 
-	set id_empleado = '',
+UPDATE empleado 
+	SET id_empleado = '',
 		nombre_e = '',
 		id_genero = '',
 		id_documento = '',
@@ -16,17 +16,17 @@ update empleado
 		telefono_e = '',
 		direccion_e = '',
 		email_e = '',
-		password_e = ''
-	where id_empleado = 'EMP-1';
+		pASsword_e = ''
+	WHERE id_empleado = 'EMP-1';
 
 
 --PARA ELIMINAR UN EMPLEADO
-delete empleado where id_empleado = 'EMP-90'
+delete empleado WHERE id_empleado = 'EMP-90'
 
 
 --PARA VER LISTA DE EMPLEADOS
-SELECT id_empleado as 'ID Empleado', nombre_e as 'Nombre', nombre_gen as 'Genero', nombre_doc as 'Documento',
-	   num_doc_e as 'N° Documento', telefono_e as 'Telefono', direccion_e as 'Domicilio', email_e as 'Email'
+SELECT id_empleado AS 'ID Empleado', nombre_e AS 'Nombre', nombre_gen AS 'Genero', nombre_doc AS 'Documento',
+	   num_doc_e AS 'N° Documento', telefono_e AS 'Telefono', direccion_e AS 'Domicilio', email_e AS 'Email'
 FROM empleado
 INNER JOIN genero ON empleado.id_genero = genero.id_genero
 INNER JOIN documento ON empleado.id_documento = documento.id_documento
