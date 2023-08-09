@@ -1,30 +1,34 @@
--- =============================================
--- Create basic stored procedure template
--- =============================================
-
+-- ==================================================================================================
+---PARA CREAR EL IDENTIFICADOR DE LA TABLA PEDIDO
+-- ==================================================================================================
+--DROP PROCEDURE dbo.ultimo_codigo_pedido
 CREATE PROCEDURE dbo.ultimo_codigo_pedido
 AS
-	DECLARE @texto VARCHAR(15),
-			@salida VARCHAR(15)
+	SET NOCOUNT ON;
 
-	SET @texto = (SELECT TOP 1 id_pedido FROM pedido
-					ORDER BY CONVERT(INT, SUBSTRING(id_pedido, 3, LEN(id_pedido))) DESC)
+	DECLARE @salida VARCHAR(15)
 
-	SET @salida =
-		CASE
-			WHEN @texto IS NOT NULL THEN
-				--		Extraigo la P									
-				SUBSTRING(@texto, 1, 1) + '-' +CONVERT(VARCHAR(15), ((CONVERT(INT, (SUBSTRING(@texto, 3, LEN(@texto)-2)), 0)) + 1), 0)
-			ELSE
-				@texto
+	IF EXISTS (SELECT 1 FROM pedido)
+		BEGIN
+		-- ==========================================================================================
+			DECLARE @ultimo_num INT
+
+			SELECT TOP 1 @ultimo_num = CONVERT(INT, SUBSTRING(id_pedido, 3, LEN(id_pedido)))
+			FROM pedido
+			ORDER BY CONVERT(INT, SUBSTRING(id_pedido, 3, LEN(id_pedido))) DESC
+			
+			SET @salida = 'P-' + CAST(@ultimo_num + 1 AS VARCHAR(15))
+		-- ==========================================================================================
+		END
+	ELSE
+		BEGIN
+		-- ==========================================================================================
+			SET @salida = 'P-1'
+		-- ==========================================================================================
 		END
 	SELECT @salida
 GO
-
--- =============================================
--- Example to execute the stored procedure
--- =============================================
+-- ==================================================================================================
+-- ==================================================================================================
 EXECUTE dbo.ultimo_codigo_pedido
 GO
-
---DROP PROCEDURE dbo.ultimo_codigo_pedido

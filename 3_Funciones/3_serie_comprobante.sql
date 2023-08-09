@@ -1,10 +1,11 @@
-
---DROP FUNCTION dbo.generar_serie_comprobante;
-
+-- =======================================================================================================================================
+---FUNCION PARA GENERAR LA SERIE COMPLETA DEL COMPROBANTE DEPENDIENDO DEL AVLOR QUE ENTRE
+-- =======================================================================================================================================
 CREATE FUNCTION dbo.generar_serie_comprobante (@input_id_com VARCHAR(15))
 RETURNS VARCHAR(20)
 AS
 BEGIN
+	SET NOCOUNT ON;
 
 	DECLARE @salida VARCHAR(20)
 
@@ -33,14 +34,3 @@ BEGIN
 		END
 RETURN @salida;
 END;
--- =======================================================================================================================================
--- SELECT para obtener la matriz de cara al usuario
--- =======================================================================================================================================
-
---SELECT dbo.generar_serie_comprobante('CMP-1')	--B001-00000001
---SELECT dbo.generar_serie_comprobante('CMP-2')	--F001-00000001
-
--- =======================================================================================================================================
--- SELECT para obtener la matriz de cara al usuario
--- ============
-

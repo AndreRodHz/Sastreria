@@ -1,4 +1,4 @@
-use SastreriaV1
+USE SastreriaV1
 
 --DROP TABLE recibo;
 --DROP TABLE detalle_venta;
@@ -57,10 +57,10 @@ INSERT INTO cliente VALUES
 
 --Insercion de datos para la tabla producto
 INSERT INTO producto VALUES
-	('PRO-1', 'Saco Normal', 'Saco rojo talla S', 'S','CTG-2', 'CDN-1', '300', '10'),
-	('PRO-2', 'Camisa Morada Bersh', 'Morada doble cuello', 'L','CTG-3', 'CDN-1', '190', '5'),
-	('PRO-3', 'Corbata Mega Azul', '', 'M','CTG-4', 'CDN-1', '87', '20'),
-	('PRO-4', 'Terno azul entero', 'Usado anteriormente', 'M','CTG-3', 'CDN-2', '200', '1')
+	('PRO-1', 'Saco Normal', 'Saco rojo talla S', 'S','CTG-2', 'CDN-1', 300, 10),
+	('PRO-2', 'Camisa Morada Bersh', 'Morada doble cuello', 'L','CTG-3', 'CDN-1', 190, 10),
+	('PRO-3', 'Corbata Mega Azul', '', 'M','CTG-4', 'CDN-1', 87, 10),
+	('PRO-4', 'Terno azul entero', 'Usado anteriormente', 'M','CTG-3', 'CDN-2', 200, 10)
 
 --Insercion de datos para la tabla comprobante
 INSERT INTO comprobante VALUES

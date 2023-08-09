@@ -1,5 +1,6 @@
---DROP TRIGGER entrada_cliente
-
+-- ==================================================================================================
+---PARA QUE LOS TEXTOS INGRESADOS EN LA TABLA CLIENTE SEAN CAPITALIZADOS (NORMALIZACION DE DATOS)
+-- ==================================================================================================
 CREATE TRIGGER entrada_cliente
 ON cliente
 AFTER INSERT, UPDATE

@@ -1,6 +1,6 @@
-
---DROP TRIGGER entrada_empleado
-
+-- ==================================================================================================
+---PARA QUE LOS TEXTOS INGRESADOS EN LA TABLA EMPLEADO SEAN CAPITALIZADOS (NORMALIZACION DE DATOS)
+-- ==================================================================================================
 CREATE TRIGGER entrada_empleado
 ON empleado
 AFTER INSERT, UPDATE

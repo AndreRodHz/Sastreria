@@ -1,10 +1,13 @@
---USE SastreriaV1
-
---**Para Capitalizar las cadenas de texto de nombre por separado, SIRVE PARA CUALQUIER CAMPO**
+-- =======================================================================================================================================
+---FUNCION PARA COLOCAR LA PRIMERA LETRA EN MAYUSCULA DE CADA ORACION
+-- =======================================================================================================================================
 CREATE FUNCTION dbo.Capitalizador (@inputString VARCHAR(255))
 RETURNS VARCHAR(255)
 AS
 BEGIN
+
+	SET NOCOUNT ON;
+
     DECLARE @outputString VARCHAR(255) = '';
     DECLARE @capitalizeNext BIT = 1;
     
