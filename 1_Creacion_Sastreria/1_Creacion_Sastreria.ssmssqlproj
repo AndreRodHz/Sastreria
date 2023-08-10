@@ -43,6 +43,12 @@
           <AssociatedConnUserName>andre</AssociatedConnUserName>
           <FullPath>2_Insercion_Datos.sql</FullPath>
         </FileNode>
+        <FileNode Name="3_Insercion 2.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-A7H30AB:False:andre</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-A7H30AB</AssociatedConnSrvName>
+          <AssociatedConnUserName>andre</AssociatedConnUserName>
+          <FullPath>3_Insercion 2.sql</FullPath>
+        </FileNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">

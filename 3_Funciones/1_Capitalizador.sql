@@ -5,9 +5,6 @@ CREATE FUNCTION dbo.Capitalizador (@inputString VARCHAR(255))
 RETURNS VARCHAR(255)
 AS
 BEGIN
-
-	SET NOCOUNT ON;
-
     DECLARE @outputString VARCHAR(255) = '';
     DECLARE @capitalizeNext BIT = 1;
     

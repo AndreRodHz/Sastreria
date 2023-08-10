@@ -6,7 +6,8 @@ DECLARE @detalle_venta_v TABLE (id_producto_v VARCHAR(15), cantidad_venta_v INT)
 
 INSERT INTO @detalle_venta_v VALUES 
     ('PRO-2', 1),
-    ('PRO-3', 2)
+    ('PRO-3', 1),
+	('PRO-4', 1)
 
 DECLARE @can_proceed BIT;
 
@@ -51,30 +52,27 @@ IF @can_proceed = 1
 		SELECT @venta_code = v_code FROM @temp_tabla_v	
 	
 		INSERT INTO venta VALUES
-			(@venta_code, (SELECT TOP 1 id_transac FROM transaccion ORDER BY fecha_t DESC),
-			'CLI-2', 'EMP-2', CURRENT_TIMESTAMP, 0, 0, 0)
+			(@venta_code, @transac_code, 'CLI-2', 'EMP-2', CURRENT_TIMESTAMP, 0, 0, 0)
 --		=======================================================================================================================================
 ---		-INSERCION EN LA DE LOS PRODCTOS DE VENTA **DETALLE VENTA**
 --		======================================================================================================================================= 
 		INSERT INTO detalle_venta VALUES
 			(@venta_code, 'PRO-2', (SELECT precio_p FROM producto WHERE id_producto = 'PRO-2'), 1),
-			(@venta_code, 'PRO-3', (SELECT precio_p FROM producto WHERE id_producto = 'PRO-3'), 2)
+			(@venta_code, 'PRO-3', (SELECT precio_p FROM producto WHERE id_producto = 'PRO-3'), 1),
+			(@venta_code, 'PRO-4', (SELECT precio_p FROM producto WHERE id_producto = 'PRO-4'), 1)
 --		=======================================================================================================================================
 ---		-ACTUALIZACION DE LA TABLA **VENTA** CON PRECIOS DEL DETALLE VENTA
 --		======================================================================================================================================= 
-		UPDATE venta
-			SET precio_base_v =
-				(
-				SELECT SUM(precio_u * cantidad_venta)
-				FROM detalle_venta
-				WHERE detalle_venta.id_venta = venta.id_venta
-				)
-			WHERE venta.id_venta = @venta_code;
+		DECLARE @precio_insertar_v NUMERIC(18,2)
+		SET @precio_insertar_v = (SELECT SUM(precio_u)
+								FROM detalle_venta
+								INNER JOIN venta ON detalle_venta.id_venta = @venta_code
+								WHERE detalle_venta.id_venta = venta.id_venta)
 
 		UPDATE venta
-			SET impuesto_v = (SELECT precio_base_v FROM venta WHERE id_venta = @venta_code) * 0.18,
-					total_v = (SELECT precio_base_v FROM venta WHERE id_venta = @venta_code) +
-							  (SELECT precio_base_v FROM venta WHERE id_venta = @venta_code) * 0.18
+			SET precio_base_v = @precio_insertar_v,
+				impuesto_v = @precio_insertar_v * 0.18,
+				total_v = @precio_insertar_v + @precio_insertar_v * 0.18
 			WHERE venta.id_venta = @venta_code;
 --		=======================================================================================================================================
 ---		-INSERCION EN LA TABLA **RECIBO**
@@ -88,14 +86,14 @@ IF @can_proceed = 1
 		SELECT @recibo_code = rv_code FROM @temp_tabla_rv
 
 		DECLARE @id_compro VARCHAR(15)
-		SET @id_compro = 'CMP-1'
+		SET @id_compro = 'CMP-2'
 
 		INSERT INTO RECIBO VALUES
-			(@recibo_code, (SELECT TOP 1 id_transac FROM transaccion ORDER BY fecha_t DESC), @id_compro,
+			(@recibo_code, @transac_code, @id_compro,
 			(SELECT dbo.generar_serie_comprobante(@id_compro)), CURRENT_TIMESTAMP,
-			(SELECT precio_base_v FROM venta WHERE id_venta = (SELECT TOP 1 id_venta FROM venta ORDER BY fecha_v DESC)), 
-			(SELECT impuesto_v FROM venta WHERE id_venta = (SELECT TOP 1 id_venta FROM venta ORDER BY fecha_v DESC)), 
-			(SELECT total_v FROM venta WHERE id_venta = (SELECT TOP 1 id_venta FROM venta ORDER BY fecha_v DESC)), 'Pagado')
+			(SELECT precio_base_v FROM venta WHERE id_venta = @venta_code), 
+			(SELECT impuesto_v FROM venta WHERE id_venta = @venta_code), 
+			(SELECT total_v FROM venta WHERE id_venta = @venta_code), 'Pagado')
 --		=======================================================================================================================================
 ---		-ACTUALIZACION DE PRODUCTOS EN LA TABLA **PRODUCTO**
 --		======================================================================================================================================= 
@@ -110,9 +108,6 @@ ELSE -- Si todas las cantidades NO son mayores o iguales, forzamos el error
 	BEGIN
 		RAISERROR('No se pueden vender productos con cantidades insuficientes.', 16, 1);
 	END
--- =======================================================================================================================================
--- =======================================================================================================================================
--- =======================================================================================================================================
 -- =======================================================================================================================================
 -- SELECT PARA OBTENER MATRIZ DE CARA AL USUARIO
 -- =======================================================================================================================================
@@ -129,6 +124,6 @@ ORDER BY CONVERT(INT, SUBSTRING(venta.id_venta, 3, LEN(venta.id_venta))) DESC
 -- =======================================================================================================================================
 SELECT * FROM transaccion ORDER BY fecha_t DESC
 SELECT * FROM venta ORDER BY fecha_v DESC
-SELECT * FROM detalle_venta
+SELECT * FROM detalle_venta WHERE id_venta = @venta_code
 SELECT * FROM producto
 SELECT * FROM recibo ORDER BY fecha_recibo DESC

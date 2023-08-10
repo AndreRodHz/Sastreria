@@ -5,8 +5,6 @@ CREATE FUNCTION dbo.generar_serie_comprobante (@input_id_com VARCHAR(15))
 RETURNS VARCHAR(20)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
 	DECLARE @salida VARCHAR(20)
 
 	IF @input_id_com LIKE 'CMP-1'
@@ -22,6 +20,7 @@ BEGIN
 		END
 
 	ELSE IF @input_id_com LIKE 'CMP-2'
+
 		BEGIN
 			IF (SELECT MAX(num_comprobante) FROM recibo WHERE num_comprobante LIKE ('%F%')) IS NOT NULL
 				BEGIN

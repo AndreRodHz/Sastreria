@@ -38,9 +38,9 @@
           <FullPath>1_Empleado.sql</FullPath>
         </FileNode>
         <FileNode Name="2_Clientes.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:MASTER:False:sa</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>MASTER</AssociatedConnSrvName>
-          <AssociatedConnUserName>sa</AssociatedConnUserName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-A7H30AB:False:andre</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-A7H30AB</AssociatedConnSrvName>
+          <AssociatedConnUserName>andre</AssociatedConnUserName>
           <FullPath>2_Clientes.sql</FullPath>
         </FileNode>
         <FileNode Name="3_Producto.sql">

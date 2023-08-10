@@ -22,7 +22,7 @@ DROP TABLE categoria;
 
 CREATE TABLE categoria(
 	id_categoria VARCHAR(15) PRIMARY KEY,
-	nombre_cate VARCHAR(50) NOT NULL,
+	nombre_cate VARCHAR(35) NOT NULL,
 	descrip_cate VARCHAR(255)
 )
 
@@ -110,6 +110,8 @@ CREATE TABLE pedido(
 	id_cliente VARCHAR(15) NOT NULL,
 	id_empleado VARCHAR(15) NOT NULL,
 	fecha_p DATETIME NOT NULL,
+	superior VARCHAR(2) NOT NULL,
+	inferior VARCHAR(2) NOT NULL,
 	descrip VARCHAR(255),
 	precio_base_p NUMERIC(18,2) NOT NULL,
 	impuesto_p NUMERIC(18,2) NOT NULL,
@@ -123,13 +125,14 @@ CREATE TABLE pedido(
 CREATE TABLE detalle_pedido(
 	id_pedido VARCHAR(15) NOT NULL,
 	id_prod_pedi VARCHAR(15) NOT NULL,
-	precio_d_pp NUMERIC(18,3) NOT NULL,
+	descripcion_dp VARCHAR(255),
+	precio_d_pp NUMERIC(18,2) NOT NULL,
 	FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido),
 	FOREIGN KEY (id_prod_pedi) REFERENCES producto_pedido(id_prod_pedi)
 )
 
 CREATE TABLE superior(
-	id_pedido VARCHAR(15),
+	id_pedido VARCHAR(15) NOT NULL,
 	cuello NUMERIC(18,2),
 	longitud NUMERIC(18,2),
 	hombros NUMERIC(18,2),
@@ -144,7 +147,7 @@ CREATE TABLE superior(
 )
 
 CREATE TABLE inferior(
-	id_pedido VARCHAR(15),
+	id_pedido VARCHAR(15) NOT NULL,
 	caderas NUMERIC(18,2),
 	largo NUMERIC(18,2),
 	tiro NUMERIC(18,2),

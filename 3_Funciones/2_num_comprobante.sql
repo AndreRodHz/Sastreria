@@ -5,8 +5,6 @@ CREATE FUNCTION dbo.num_comprobante (@inputString VARCHAR(5))
 RETURNS VARCHAR(15)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
 	DECLARE @input_num_comp VARCHAR(20),
 			@primera VARCHAR(4),
 			@segunda VARCHAR(8),

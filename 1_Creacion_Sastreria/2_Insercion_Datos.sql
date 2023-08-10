@@ -158,11 +158,11 @@ INSERT INTO producto_pedido VALUES
 
 --Insercion de datos para la tabla pedido
 INSERT INTO pedido VALUES
-	('P-1', 'T-3','CLI-3', 'EMP-2', CURRENT_TIMESTAMP, 'Para niño de 10 años', 600, 600*0.18, 600+600*0.18)
+	('P-1', 'T-3','CLI-3', 'EMP-2', CURRENT_TIMESTAMP, 'Si', 'Si','Para niño de 10 años', 600, 600*0.18, 600+600*0.18)
 
 --Insercion de datos para la tabla detalle pedido
 INSERT INTO detalle_pedido VALUES
-	('P-1', 'PRP-1', 90)
+	('P-1', 'PRP-1', 'Con cuello rosado',90)
 
 --Insercion de datos para la tabla superior
 INSERT INTO superior VALUES 
