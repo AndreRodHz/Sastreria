@@ -49,29 +49,41 @@
           <AssociatedConnUserName>andre</AssociatedConnUserName>
           <FullPath>3_Producto.sql</FullPath>
         </FileNode>
-        <FileNode Name="4_Venta.sql">
+        <FileNode Name="4_Secuencia_Venta.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-A7H30AB:False:andre</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-A7H30AB</AssociatedConnSrvName>
           <AssociatedConnUserName>andre</AssociatedConnUserName>
-          <FullPath>4_Venta.sql</FullPath>
+          <FullPath>4_Secuencia_Venta.sql</FullPath>
         </FileNode>
-        <FileNode Name="5_Alquiler.sql">
+        <FileNode Name="5_Secuencia_Alquiler.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-A7H30AB:False:andre</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-A7H30AB</AssociatedConnSrvName>
           <AssociatedConnUserName>andre</AssociatedConnUserName>
-          <FullPath>5_Alquiler.sql</FullPath>
+          <FullPath>5_Secuencia_Alquiler.sql</FullPath>
         </FileNode>
-        <FileNode Name="6_Pedido.sql">
+        <FileNode Name="6_Secuencia_Pedido.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-A7H30AB:False:andre</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-A7H30AB</AssociatedConnSrvName>
           <AssociatedConnUserName>andre</AssociatedConnUserName>
-          <FullPath>6_Pedido.sql</FullPath>
+          <FullPath>6_Secuencia_Pedido.sql</FullPath>
         </FileNode>
-        <FileNode Name="7_.sql">
+        <FileNode Name="7_Extrac_Venta.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-A7H30AB:False:andre</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-A7H30AB</AssociatedConnSrvName>
           <AssociatedConnUserName>andre</AssociatedConnUserName>
-          <FullPath>7_.sql</FullPath>
+          <FullPath>7_Extrac_Venta.sql</FullPath>
+        </FileNode>
+        <FileNode Name="8_Extract_Alquiler.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-A7H30AB:False:andre</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-A7H30AB</AssociatedConnSrvName>
+          <AssociatedConnUserName>andre</AssociatedConnUserName>
+          <FullPath>8_Extract_Alquiler.sql</FullPath>
+        </FileNode>
+        <FileNode Name="9_Extrac_Pedido.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-A7H30AB:False:andre</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-A7H30AB</AssociatedConnSrvName>
+          <AssociatedConnUserName>andre</AssociatedConnUserName>
+          <FullPath>9_Extrac_Pedido.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>
